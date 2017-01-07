@@ -1,0 +1,1441 @@
+Last login: Mon Sep 12 14:09:49 on ttys000
+liangyuweideMacBook-Pro:bin chineselyw$ cd /
+liangyuweideMacBook-Pro:/ chineselyw$ cd data
+liangyuweideMacBook-Pro:data chineselyw$ cd mongodb-osx-x86_64-3.0.4/
+liangyuweideMacBook-Pro:mongodb-osx-x86_64-3.0.4 chineselyw$ cd bin
+liangyuweideMacBook-Pro:bin chineselyw$ .mongodb
+-bash: .mongodb: command not found
+liangyuweideMacBook-Pro:bin chineselyw$ .mongo
+-bash: .mongo: command not found
+liangyuweideMacBook-Pro:bin chineselyw$ ./mongodb
+-bash: ./mongodb: No such file or directory
+liangyuweideMacBook-Pro:bin chineselyw$ ls
+bsondump	mongodump	mongoimport	mongorestore	mongostat
+mongo		mongoexport	mongooplog	mongos		mongotop
+mongod		mongofiles	mongoperf	mongosniff
+liangyuweideMacBook-Pro:bin chineselyw$ mongo
+-bash: mongo: command not found
+liangyuweideMacBook-Pro:bin chineselyw$ ./mongo
+MongoDB shell version: 3.0.4
+connecting to: test
+Server has startup warnings: 
+2016-09-12T14:10:08.698+0800 I CONTROL  [initandlisten] 
+2016-09-12T14:10:08.699+0800 I CONTROL  [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+> show.db
+2016-09-13T05:30:30.450+0800 E QUERY    ReferenceError: show is not defined
+    at (shell):1:1
+> db.show
+test.show
+> use test
+switched to db test
+> show collections
+> show collection
+2016-09-13T05:31:05.404+0800 E QUERY    Error: don't know how to show [collection]
+    at Error (<anonymous>)
+    at shellHelper.show (src/mongo/shell/utils.js:733:11)
+    at shellHelper (src/mongo/shell/utils.js:524:36)
+    at (shellhelp2):1:1 at src/mongo/shell/utils.js:733
+> show.collection
+2016-09-13T05:31:23.109+0800 E QUERY    ReferenceError: show is not defined
+    at (shell):1:1
+> ?
+... 
+... 
+> 
+> /?
+... 
+... 
+> 
+> /?
+... 
+... 
+> 
+> 
+> 
+> 
+> help
+	db.help()                    help on db methods
+	db.mycoll.help()             help on collection methods
+	sh.help()                    sharding helpers
+	rs.help()                    replica set helpers
+	help admin                   administrative help
+	help connect                 connecting to a db help
+	help keys                    key shortcuts
+	help misc                    misc things to know
+	help mr                      mapreduce
+
+	show dbs                     show database names
+	show collections             show collections in current database
+	show users                   show users in current database
+	show profile                 show most recent system.profile entries with time >= 1ms
+	show logs                    show the accessible logger names
+	show log [name]              prints out the last segment of log in memory, 'global' is default
+	use <db_name>                set current database
+	db.foo.find()                list objects in collection foo
+	db.foo.find( { a : 1 } )     list objects in foo where a == 1
+	it                           result of the last line evaluated; use to further iterate
+	DBQuery.shellBatchSize = x   set default number of items to display on shell
+	exit                         quit the mongo shell
+> show dbs
+local  0.078GB
+mydb   0.453GB
+> use mydb
+switched to db mydb
+> show collections
+commands
+equipments
+foo
+room
+script
+system.indexes
+system.js
+task
+taskItem
+> db.fruit.insert({_id:1,fruit:[a,b,c]}
+... )
+2016-09-13T05:33:40.834+0800 E QUERY    ReferenceError: a is not defined
+    at (shell):1:31
+> db.fruit.insert({"_id":1,fruit:[a,b,c]} )
+2016-09-13T05:33:59.393+0800 E QUERY    ReferenceError: a is not defined
+    at (shell):1:33
+> db.fruit.insert({"_id":1,"fruit":[a,b,c]})
+2016-09-13T05:34:14.245+0800 E QUERY    ReferenceError: a is not defined
+    at (shell):1:35
+> help
+	db.help()                    help on db methods
+	db.mycoll.help()             help on collection methods
+	sh.help()                    sharding helpers
+	rs.help()                    replica set helpers
+	help admin                   administrative help
+	help connect                 connecting to a db help
+	help keys                    key shortcuts
+	help misc                    misc things to know
+	help mr                      mapreduce
+
+	show dbs                     show database names
+	show collections             show collections in current database
+	show users                   show users in current database
+	show profile                 show most recent system.profile entries with time >= 1ms
+	show logs                    show the accessible logger names
+	show log [name]              prints out the last segment of log in memory, 'global' is default
+	use <db_name>                set current database
+	db.foo.find()                list objects in collection foo
+	db.foo.find( { a : 1 } )     list objects in foo where a == 1
+	it                           result of the last line evaluated; use to further iterate
+	DBQuery.shellBatchSize = x   set default number of items to display on shell
+	exit                         quit the mongo shell
+> db.foo.find()
+{ "_id" : 2, "a" : "a2", "b" : "b2", "c" : "c2" }
+{ "_id" : ObjectId("576f6dc6d1800bb5f53f2704"), "b" : "b11", "a" : "a1" }
+> db.foo.insert({"_id":1,"fruit":[a,b,c]})
+2016-09-13T05:35:37.100+0800 E QUERY    ReferenceError: a is not defined
+    at (shell):1:33
+> db.insert.insert({"_id":1,"fruit":["a","b","c"]})
+WriteResult({ "nInserted" : 1 })
+> show collections
+commands
+equipments
+foo
+insert
+room
+script
+system.indexes
+system.js
+task
+taskItem
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c" ] }
+> db.insert.insert({"_id":2,"fruit":["b","d","c"]})
+WriteResult({ "nInserted" : 1 })
+> db.insert.insert({"_id":2,"fruit":["c","d","e"]})
+WriteResult({
+	"nInserted" : 0,
+	"writeError" : {
+		"code" : 11000,
+		"errmsg" : "E11000 duplicate key error index: mydb.insert.$_id_ dup key: { : 2.0 }"
+	}
+})
+> db.insert.insert({"_id":3,"fruit":["c","d","e"]})
+WriteResult({ "nInserted" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c" ] }
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e" ] }
+> db.insert.update({$push:{"fruit":"f"}})
+2016-09-13T05:39:01.022+0800 E QUERY    Error: need an object
+    at Error (<anonymous>)
+    at DBCollection._parseUpdate (src/mongo/shell/collection.js:400:21)
+    at DBCollection.update (src/mongo/shell/collection.js:432:23)
+    at (shell):1:11 at src/mongo/shell/collection.js:400
+> db.insert.update({"_id":1},{$push:{"fruit":"f"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f" ] }
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e" ] }
+> db.insert.find({"fruit":["a","b"]})
+> db.insert.find({"fruit":{$all:["a","b"]}})
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f" ] }
+> db.insert.find({"fruit":{$all:["c","d"]}})
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e" ] }
+> db.insert.find({"fruit":d})
+2016-09-13T05:41:14.685+0800 E QUERY    ReferenceError: d is not defined
+    at (shell):1:25
+> db.insert.find({"fruit":"d"})
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e" ] }
+> db.insert.update({"_id":3},{$push:{"fruit":"g"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f" ] }
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.find({"fruit.2":"c"});
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f" ] }
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+> db.insert.find({"fruit.0":"c"});
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> 
+Entering keyboard debugging mode (on ctrl-^), press ctrl-C to exit this mode
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  
+13 x0D (^M)  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  
+27 x1B (ESC)  
+27 x1B (ESC)  
+27 x1B (ESC)  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+30 x1E (^^)  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+27 x1B (ESC)  91 x5B ('[')  65 x41 ('A')  
+3 x03 (^C)  
+Leaving keyboard debugging mode (on ctrl-C)
+> 
+[1]+  Stopped                 ./mongo
+liangyuweideMacBook-Pro:bin chineselyw$ ./mongo
+MongoDB shell version: 3.0.4
+connecting to: test
+Server has startup warnings: 
+2016-09-12T14:10:08.698+0800 I CONTROL  [initandlisten] 
+2016-09-12T14:10:08.699+0800 I CONTROL  [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
+> use mydb
+switched to db mydb
+> ls
+function ls() { [native code] }
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f" ] }
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.find({"fruit":{$size:3}})
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+> db.insert.find({"fruit":{$size:4}})
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.find({"fruit":{$size:2}})
+> db.insert.find({"$push":{"fruit":"h"},"$inc":{"size":1}}
+... )
+Error: error: {
+	"$err" : "Can't canonicalize query: BadValue unknown top level operator: $push",
+	"code" : 17287
+}
+> db.insert.find({},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+Error: error: {
+	"$err" : "Can't canonicalize query: BadValue Unsupported projection option: $push: { fruit: \"h\" }",
+	"code" : 17287
+}
+> db.insert.find({"fruit.0":"a"},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+Error: error: {
+	"$err" : "Can't canonicalize query: BadValue Unsupported projection option: $push: { fruit: \"h\" }",
+	"code" : 17287
+}
+> db.insert.update({"$push":{"fruit":"h"},"$inc":{"size":1}} )
+2016-09-13T05:56:55.855+0800 E QUERY    Error: need an object
+    at Error (<anonymous>)
+    at DBCollection._parseUpdate (src/mongo/shell/collection.js:400:21)
+    at DBCollection.update (src/mongo/shell/collection.js:432:23)
+    at (shell):1:11 at src/mongo/shell/collection.js:400
+> db.insert.update({},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h" ], "size" : 1 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c" ] }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.update({"fruit.0":"b"},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h" ], "size" : 1 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h" ], "size" : 1 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.update({"fruit":{"$all":["b","c"]}},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h" ], "size" : 1 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.update({"fruit":{"$all":["d"]}},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h" ], "size" : 2 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.update({"fruit":"d"},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h", "h" ], "size" : 3 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g" ] }
+> db.insert.update({"fruit":"d","_id":3},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h", "h" ], "size" : 3 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g", "h" ], "size" : 1 }
+> db.insert.update({"fruit":"d","fruit.0":"c"},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h", "h" ], "size" : 3 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g", "h", "h" ], "size" : 2 }
+> db.insert.update({"fruit":"d","fruit.0":"b"},{"$push":{"fruit":"h"},"$inc":{"size":1}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h", "h", "h" ], "size" : 4 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g", "h", "h" ], "size" : 2 }
+> show collections
+commands
+equipments
+foo
+insert
+room
+script
+system.indexes
+system.js
+task
+taskItem
+> db.task.find()
+{ "_id" : ObjectId("55d33a986049b8b534515345"), "taskName" : "任务名称2ws", "startTime" : "08/18/2015 21:52:44", "active" : true }
+{ "_id" : ObjectId("55d33aa06049b8b534515346"), "taskName" : "任务名称2w", "startTime" : "08/18/2015 21:52:44", "active" : false }
+{ "_id" : ObjectId("5692602114d677711b139a62"), "taskName" : "任务名称", "startTime" : "01/10/2016 21:43:54", "active" : true }
+> _task
+2016-09-13T12:36:27.227+0800 E QUERY    ReferenceError: _task is not defined
+    at (shell):1:1
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h", "h", "h" ], "size" : 4 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g", "h", "h" ], "size" : 2 }
+> db.remove("insert")
+2016-09-13T12:37:04.527+0800 E QUERY    TypeError: Property 'remove' of object mydb is not a function
+    at (shell):1:4
+> db.insert.remove()
+2016-09-13T12:37:18.556+0800 E QUERY    Error: remove needs a query
+    at Error (<anonymous>)
+    at DBCollection._parseRemove (src/mongo/shell/collection.js:305:32)
+    at DBCollection.remove (src/mongo/shell/collection.js:328:23)
+    at (shell):1:11 at src/mongo/shell/collection.js:305
+> db.insert.remove()
+2016-09-13T12:37:20.595+0800 E QUERY    Error: remove needs a query
+    at Error (<anonymous>)
+    at DBCollection._parseRemove (src/mongo/shell/collection.js:305:32)
+    at DBCollection.remove (src/mongo/shell/collection.js:328:23)
+    at (shell):1:11 at src/mongo/shell/collection.js:305
+> db.insert.find()
+{ "_id" : 1, "fruit" : [ "a", "b", "c", "f", "h", "h" ], "size" : 2 }
+{ "_id" : 2, "fruit" : [ "b", "d", "c", "h", "h", "h", "h" ], "size" : 4 }
+{ "_id" : 3, "fruit" : [ "c", "d", "e", "g", "h", "h" ], "size" : 2 }
+> db.insert.?
+... 
+... 
+> 
+> 
+>
+> db.getMongo()
+connection to 127.0.0.1
+> db.stats
+function (scale){
+    return this.runCommand( { dbstats : 1 , scale : scale } );
+}
+> db.stats()
+{
+	"db" : "mydb",
+	"collections" : 13,
+	"objects" : 80,
+	"avgObjSize" : 122.6,
+	"dataSize" : 9808,
+	"storageSize" : 174862336,
+	"numExtents" : 25,
+	"indexes" : 11,
+	"indexSize" : 89936,
+	"fileSize" : 469762048,
+	"nsSizeMB" : 16,
+	"extentFreeList" : {
+		"num" : 2,
+		"totalSize" : 139264
+	},
+	"dataFileVersion" : {
+		"major" : 4,
+		"minor" : 22
+	},
+	"ok" : 1
+}
+> show collections
+_task
+commands
+equipments
+foo
+room
+script
+system.indexes
+system.js
+t
+t_task
+task
+taskItem
+> db.eval("searchEqs(1,1,{name:-1})")
+WARNING: db.eval is deprecated
+[
+	{
+		"_id" : ObjectId("54f9c81e15f4425d2eee969d"),
+		"name" : "equipment3",
+		"room" : {
+			"_id" : ObjectId("54f9b962e04b47dcb6e15ac2"),
+			"name" : "Room3"
+		},
+		"roomName" : "Room3"
+	}
+]
+> show collections
+_task
+commands
+equipments
+foo
+room
+script
+system.indexes
+system.js
+t
+t_task
+task
+taskItem
+> db.system.js.find()
+{ "_id" : "add", "value" : function (x,y){return x+y;} }
+{ "_id" : "searchEqs", "value" : function (skip,limit,sort){ var eqs = db.equipments.find().skip(skip).limit(limit).sort(sort);var objs = [];while(eqs.hasNext()){var obj = eqs.next();  objs.push(obj);if(obj.hasOwnProperty("room") && obj.room.hasOwnProperty("_id")){obj.roomName=db.room.find({_id:obj.room._id},{_id:0})[0].name; }}return objs;} }
+> db.system.js.insert(
+... {"_id":"sum",
+... "value":function(){
+... var sum=0;
+... for(i=1;i<arguments.length;i++){sum+=arguments[i];}
+... return sum;
+..db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.ta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.tas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.f
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find()}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find()}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find()}})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find()}})
+WriteResult({ "nInserted" : 1 })
+> db.eval("addTask({"name":"taskName1"}")
+2016-09-14T14:38:04.023+0800 E QUERY    SyntaxError: Unexpected identifier
+> var obj={"a":"a1"}
+> obj
+{ "a" : "a1" }
+> db.eval("addTask(obj)")
+WARNING: db.eval is deprecated
+2016-09-14T14:39:28.257+0800 E QUERY    Error: {
+	"errmsg" : "exception: ReferenceError: obj is not defined\n    at _funcs1 (_funcs1:1:38)",
+	"code" : 16722,
+	"ok" : 0
+}
+    at Error (<anonymous>)
+    at DB.eval (src/mongo/shell/db.js:464:15)
+    at (shell):1:4 at src/mongo/shell/db.js:464
+> db.system.js.find()
+{ "_id" : "add", "value" : function (x,y){return x+y;} }
+{ "_id" : "searchEqs", "value" : function (skip,limit,sort){ var eqs = db.equipments.find().skip(skip).limit(limit).sort(sort);var objs = [];while(eqs.hasNext()){var obj = eqs.next();  objs.push(obj);if(obj.hasOwnProperty("room") && obj.room.hasOwnProperty("_id")){obj.roomName=db.room.find({_id:obj.room._id},{_id:0})[0].name; }}return objs;} }
+{ "_id" : "addTask", "value" : function (obj){db.task.insert(obj);db.task.find()} }
+> db.eval("addTask({})")
+WARNING: db.eval is deprecated
+null
+> db.task.find()
+{ "_id" : ObjectId("55d33a986049b8b534515345"), "taskName" : "任务名称2ws", "startTime" : "08/18/2015 21:52:44", "active" : true }
+{ "_id" : ObjectId("55d33aa06049b8b534515346"), "taskName" : "任务名称2w", "startTime" : "08/18/2015 21:52:44", "active" : false }
+{ "_id" : ObjectId("5692602114d677711b139a62"), "taskName" : "任务名称", "startTime" : "01/10/2016 21:43:54", "active" : true }
+{ "_id" : ObjectId("57d8f1203db48d8e2d8daf1d") }
+> db.eval('addTask({"a":"a1"})')
+WARNING: db.eval is deprecated
+null
+> db.task.find()
+{ "_id" : ObjectId("55d33a986049b8b534515345"), "taskName" : "任务名称2ws", "startTime" : "08/18/2015 21:52:44", "active" : true }
+{ "_id" : ObjectId("55d33aa06049b8b534515346"), "taskName" : "任务名称2w", "startTime" : "08/18/2015 21:52:44", "active" : false }
+{ "_id" : ObjectId("5692602114d677711b139a62"), "taskName" : "任务名称", "startTime" : "01/10/2016 21:43:54", "active" : true }
+{ "_id" : ObjectId("57d8f1203db48d8e2d8daf1d") }
+{ "_id" : ObjectId("57d8f1643db48d8e2d8daf1e"), "a" : "a1" }
+> db.system.js.find()
+{ "_id" : "add", "value" : function (x,y){return x+y;} }
+{ "_id" : "searchEqs", "value" : function (skip,limit,sort){ var eqs = db.equipments.find().skip(skip).limit(limit).sort(sort);var objs = [];while(eqs.hasNext()){var obj = eqs.next();  objs.push(obj);if(obj.hasOwnProperty("room") && obj.room.hasOwnProperty("_id")){obj.roomName=db.room.find({_id:obj.room._id},{_id:0})[0].name; }}return objs;} }
+{ "_id" : "addTask", "value" : function (obj){db.task.insert(obj);db.task.find()} }
+> db.system.js.remove({"_id":"addTask"})
+WriteResult({ "nRemoved" : 1 })
+> 
+> db.system.js.find()
+{ "_id" : "add", "value" : function (x,y){return x+y;} }
+{ "_id" : "searchEqs", "value" : function (skip,limit,sort){ var eqs = db.equipments.find().skip(skip).limit(limit).sort(sort);var objs = [];while(eqs.hasNext()){var obj = eqs.next();  objs.push(obj);if(obj.hasOwnProperty("room") && obj.room.hasOwnProperty("_id")){obj.roomName=db.room.find({_id:obj.room._id},{_id:0})[0].name; }}return objs;} }
+> db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);db.task.find();}})
+WriteResult({ "nInserted" : 1 })
+> db.system.js.find()
+{ "_id" : "add", "value" : function (x,y){return x+y;} }
+{ "_id" : "searchEqs", "value" : function (skip,limit,sort){ var eqs = db.equipments.find().skip(skip).limit(limit).sort(sort);var objs = [];while(eqs.hasNext()){var obj = eqs.next();  objs.push(obj);if(obj.hasOwnProperty("room") && obj.room.hasOwnProperty("_id")){obj.roomName=db.room.find({_id:obj.room._id},{_id:0})[0].name; }}return objs;} }
+{ "_id" : "addTask", "value" : function (obj){db.task.insert(obj);db.task.find();} }
+> db.eval('addTask({"a":"a1"})')
+WARNING: db.eval is deprecated
+null
+> db.task.find()
+{ "_id" : ObjectId("55d33a986049b8b534515345"), "taskName" : "任务名称2ws", "startTime" : "08/18/2015 21:52:44", "active" : true }
+{ "_id" : ObjectId("55d33aa06049b8b534515346"), "taskName" : "任务名称2w", "startTime" : "08/18/2015 21:52:44", "active" : false }
+{ "_id" : ObjectId("5692602114d677711b139a62"), "taskName" : "任务名称", "startTime" : "01/10/2016 21:43:54", "active" : true }
+{ "_id" : ObjectId("57d8f1203db48d8e2d8daf1d") }
+{ "_id" : ObjectId("57d8f1643db48d8e2d8daf1e"), "a" : "a1" }
+{ "_id" : ObjectId("57d8f36b3db48d8e2d8daf1f"), "a" : "a1" }
+> db.system.js.insert({"_id":"findTask","value":function(){db.task.find();}})
+WriteResult({ "nInserted" : 1 })
+> db.eval('findTask()')
+WARNING: db.eval is deprecated
+null
+> db.system.js.remove({"_id":"addTask"})
+WriteResult({ "nRemoved" : 1 })
+> db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);return db.task.find();}})
+WriteResult({ "nInserted" : 1 })
+> db.eval('addTask({"a":"a1"})')
+WARNING: db.eval is deprecated
+{
+	"_mongo" : {
+		"slaveOk" : false,
+		"host" : "EMBEDDED",
+		"_writeMode" : "commands",
+		"_hasWriteCommands" : true
+	},
+	"_db" : {
+		"_mongo" : {
+			"slaveOk" : false,
+			"host" : "EMBEDDED",
+			"_writeMode" : "commands",
+			"_hasWriteCommands" : true
+		},
+		"_name" : "mydb"
+	},
+	"_collection" : {
+		"_mongo" : {
+			"slaveOk" : false,
+			"host" : "EMBEDDED",
+			"_writeMode" : "commands",
+			"_hasWriteCommands" : true
+		},
+		"_db" : {
+			"_mongo" : {
+				"slaveOk" : false,
+				"host" : "EMBEDDED",
+				"_writeMode" : "commands",
+				"_hasWriteCommands" : true
+			},
+			"_name" : "mydb"
+		},
+		"_shortName" : "task",
+		"_fullName" : "mydb.task",
+		"_lastID" : null
+	},
+	"_ns" : "mydb.task",
+	"_query" : {
+		
+	},
+	"_fields" : null,
+	"_limit" : 0,
+	"_skip" : 0,
+	"_batchSize" : 0,
+	"_options" : 0,
+	"_cursor" : null,
+	"_numReturned" : 0,
+	"_special" : false
+}
+> db.system.js.remove({"_id":"addTask"})
+WriteResult({ "nRemoved" : 1 })
+> db.system.js.find()
+{ "_id" : "add", "value" : function (x,y){return x+y;} }
+{ "_id" : "searchEqs", "value" : function (skip,limit,sort){ var eqs = db.equipments.find().skip(skip).limit(limit).sort(sort);var objs = [];while(eqs.hasNext()){var obj = eqs.next();  objs.push(obj);if(obj.hasOwnProperty("room") && obj.room.hasOwnProperty("_id")){obj.roomName=db.room.find({_id:obj.room._id},{_id:0})[0].name; }}return objs;} }
+{ "_id" : "findTask", "value" : function (){db.task.find();} }
+> db.system.js.insert({"_id":"addTask","value":function(obj){db.task.insert(obj);var a = db.task.find();var b=[];while(a.hasNext()){b.push(a.next())};return b;}})
+WriteResult({ "nInserted" : 1 })
+> db.eval('addTask({"a":"a1"})')
+WARNING: db.eval is deprecated
+[
+	{
+		"_id" : ObjectId("55d33a986049b8b534515345"),
+		"taskName" : "任务名称2ws",
+		"startTime" : "08/18/2015 21:52:44",
+		"active" : true
+	},
+	{
+		"_id" : ObjectId("55d33aa06049b8b534515346"),
+		"taskName" : "任务名称2w",
+		"startTime" : "08/18/2015 21:52:44",
+		"active" : false
+	},
+	{
+		"_id" : ObjectId("5692602114d677711b139a62"),
+		"taskName" : "任务名称",
+		"startTime" : "01/10/2016 21:43:54",
+		"active" : true
+	},
+	{
+		"_id" : ObjectId("57d8f1203db48d8e2d8daf1d")
+	},
+	{
+		"_id" : ObjectId("57d8f1643db48d8e2d8daf1e"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f36b3db48d8e2d8daf1f"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f4283db48d8e2d8daf20"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f5803db48d8e2d8daf21"),
+		"a" : "a1"
+	}
+]
+> db.task.find()
+{ "_id" : ObjectId("55d33a986049b8b534515345"), "taskName" : "任务名称2ws", "startTime" : "08/18/2015 21:52:44", "active" : true }
+{ "_id" : ObjectId("55d33aa06049b8b534515346"), "taskName" : "任务名称2w", "startTime" : "08/18/2015 21:52:44", "active" : false }
+{ "_id" : ObjectId("5692602114d677711b139a62"), "taskName" : "任务名称", "startTime" : "01/10/2016 21:43:54", "active" : true }
+{ "_id" : ObjectId("57d8f1203db48d8e2d8daf1d") }
+{ "_id" : ObjectId("57d8f1643db48d8e2d8daf1e"), "a" : "a1" }
+{ "_id" : ObjectId("57d8f36b3db48d8e2d8daf1f"), "a" : "a1" }
+{ "_id" : ObjectId("57d8f4283db48d8e2d8daf20"), "a" : "a1" }
+{ "_id" : ObjectId("57d8f5803db48d8e2d8daf21"), "a" : "a1" }
+> db.eval('addTask({"a":"a1"})')
+WARNING: db.eval is deprecated
+[
+	{
+		"_id" : ObjectId("55d33a986049b8b534515345"),
+		"taskName" : "任务名称2ws",
+		"startTime" : "08/18/2015 21:52:44",
+		"active" : true
+	},
+	{
+		"_id" : ObjectId("55d33aa06049b8b534515346"),
+		"taskName" : "任务名称2w",
+		"startTime" : "08/18/2015 21:52:44",
+		"active" : false
+	},
+	{
+		"_id" : ObjectId("5692602114d677711b139a62"),
+		"taskName" : "任务名称",
+		"startTime" : "01/10/2016 21:43:54",
+		"active" : true
+	},
+	{
+		"_id" : ObjectId("57d8f1203db48d8e2d8daf1d")
+	},
+	{
+		"_id" : ObjectId("57d8f1643db48d8e2d8daf1e"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f36b3db48d8e2d8daf1f"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f4283db48d8e2d8daf20"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f5803db48d8e2d8daf21"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f61a3db48d8e2d8daf22"),
+		"a" : "a1"
+	}
+]
+> db.eval('addTask({"b":"b"})')
+WARNING: db.eval is deprecated
+[
+	{
+		"_id" : ObjectId("55d33a986049b8b534515345"),
+		"taskName" : "任务名称2ws",
+		"startTime" : "08/18/2015 21:52:44",
+		"active" : true
+	},
+	{
+		"_id" : ObjectId("55d33aa06049b8b534515346"),
+		"taskName" : "任务名称2w",
+		"startTime" : "08/18/2015 21:52:44",
+		"active" : false
+	},
+	{
+		"_id" : ObjectId("5692602114d677711b139a62"),
+		"taskName" : "任务名称",
+		"startTime" : "01/10/2016 21:43:54",
+		"active" : true
+	},
+	{
+		"_id" : ObjectId("57d8f1203db48d8e2d8daf1d")
+	},
+	{
+		"_id" : ObjectId("57d8f1643db48d8e2d8daf1e"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f36b3db48d8e2d8daf1f"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f4283db48d8e2d8daf20"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f5803db48d8e2d8daf21"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f61a3db48d8e2d8daf22"),
+		"a" : "a1"
+	},
+	{
+		"_id" : ObjectId("57d8f6263db48d8e2d8daf23"),
+		"b" : "b"
+	}
+]
+
+
+> help
+	db.help()                    help on db methods
+	db.mycoll.help()             help on collection methods
+	sh.help()                    sharding helpers
+	rs.help()                    replica set helpers
+	help admin                   administrative help
+	help connect                 connecting to a db help
+	help keys                    key shortcuts
+	help misc                    misc things to know
+	help mr                      mapreduce
+
+	show dbs                     show database names
+	show collections             show collections in current database
+	show users                   show users in current database
+	show profile                 show most recent system.profile entries with time >= 1ms
+	show logs                    show the accessible logger names
+	show log [name]              prints out the last segment of log in memory, 'global' is default
+	use <db_name>                set current database
+	db.foo.find()                list objects in collection foo
+	db.foo.find( { a : 1 } )     list objects in foo where a == 1
+	it                           result of the last line evaluated; use to further iterate
+	DBQuery.shellBatchSize = x   set default number of items to display on shell
+	exit                         quit the mongo shell
+> db.getCollection("_task").drop()
+true
+> show collections
+commands
+equipments
+foo
+room
+script
+system.indexes
+system.js
+t
+t_task
+task
+taskItem
+> exit
+bye
+liangyuweideMacBook-Pro:bin chineselyw$ ls
+bsondump	mongod		mongoexport	mongoimport	mongoperf	mongos		mongostat
+mongo		mongodump	mongofiles	mongooplog	mongorestore	mongosniff	mongotop
+liangyuweideMacBook-Pro:bin chineselyw$ cd ..
+liangyuweideMacBook-Pro:mongodb-osx-x86_64-3.0.4 chineselyw$ ls
+GNU-AGPL-3.0		README			THIRD-PARTY-NOTICES	bin
+liangyuweideMacBook-Pro:mongodb-osx-x86_64-3.0.4 chineselyw$ cd ..
+liangyuweideMacBook-Pro:data chineselyw$ ls
+db				mongodb-osx-x86_64-3.0.4
+liangyuweideMacBook-Pro:data chineselyw$ cd db
+liangyuweideMacBook-Pro:db chineselyw$ ls
+_tmp		journal		local.0		local.ns	mongod.lock	mydb.0		mydb.1		mydb.2		mydb.ns		storage.bson
+liangyuweideMacBook-Pro:db chineselyw$ ls /i
+ls: /i: No such file or directory
+liangyuweideMacBook-Pro:db chineselyw$ ls /?
+ls: /?: No such file or directory
+liangyuweideMacBook-Pro:db chineselyw$ ls
+_tmp		journal		local.0		local.ns	mongod.lock	mydb.0		mydb.1		mydb.2		mydb.ns		storage.bson
+liangyuweideMacBook-Pro:db chineselyw$ dir
+-bash: dir: command not found
+liangyuweideMacBook-Pro:db chineselyw$ ls -help
+total 1114128
+drwxr-xr-x  2 chineselyw  wheel    68B  9 13 12:47 _tmp/
+drwxr-xr-x  4 chineselyw  wheel   136B  9 13 17:06 journal/
+-rw-------  1 chineselyw  wheel    64M  9 12 14:11 local.0
+-rw-------  1 chineselyw  wheel    16M  9 12 14:11 local.ns
+-rwxr-xr-x  1 chineselyw  wheel     5B  9 12 14:10 mongod.lock
+-rw-------  1 chineselyw  wheel    64M  9 14 20:35 mydb.0
+-rw-------  1 chineselyw  wheel   128M  6 26 13:54 mydb.1
+-rw-------  1 chineselyw  wheel   256M  9 14 20:35 mydb.2
+-rw-------  1 chineselyw  wheel    16M  9 14 20:35 mydb.ns
+-rw-r--r--  1 chineselyw  wheel    69B  6 24  2015 storage.bson
+
+> show dbs
+local  0.078GB
+mydb   0.453GB
+> db
+mydb
+> show collections
+commands
+equipments
+foo
+room
+script
+system.indexes
+system.js
+t
+t_task
+task
+taskItem
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b" }
+> db.t.update({},{$set:{"b":1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 1 }
+> db.t.insert({"a":"a1"})
+WriteResult({ "nInserted" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 1 }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1" }
+> db.t.update({},{$set:{"b":2}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2 }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1" }
+> db.t.insert({"a":"a1","a1":"a2"})
+WriteResult({ "nInserted" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2 }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1" }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2" }
+> db.t.update({"a":"a1"},{$set:{"b":2}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2 }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 2 }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2" }
+> db.t.update({"a":"a1"},{$inc:{"b":1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2 }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3 }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2" }
+> db.t.update({"a1":"a2"},{$inc:{"b":1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2 }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3 }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1 }
+> db.t.update({"a":"b"},{$push:{"comments":{"a3":"a333","b3":"b333"}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3 }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1 }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+> db.t.update({"a":"a1"},{$push:{"comments":{"a3":"a333","b3":"b333"}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1 }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+> db.t.find({comments.a3:"a333"})
+2016-09-14T22:51:30.869+0800 E QUERY    SyntaxError: Unexpected token .
+> db.t.find({comments.1.a3:"a333"})
+2016-09-14T22:53:04.520+0800 E QUERY    SyntaxError: Unexpected number
+> db.t.find({comments[1].a3:"a333"})
+2016-09-14T22:53:16.385+0800 E QUERY    SyntaxError: Unexpected token [
+> db.t.find()
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1 }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+> db.t.update({},{$addToSet:{"comments":{"a3":"a123"}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+> db.t.update({},{$addToSet:{"comments":{"a3":"a2123"}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" }, { "a3" : "a2123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+> db.t.update({},{$addToSet:{"comments":{$each[{"a3":"a3123"},{"a3":"a4"}]}}})
+2016-09-15T06:30:32.806+0800 E QUERY    SyntaxError: Unexpected token [
+> db.t.update({},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4"}]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" }, { "a3" : "a2123" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+> db.t.update({"a":"a1"},{"comments":{$pop:{key:1}}})
+2016-09-15T06:39:26.218+0800 E QUERY    Error: field names cannot start with $ [$pop]
+    at Error (<anonymous>)
+    at DBCollection._validateForStorage (src/mongo/shell/collection.js:161:19)
+    at DBCollection._validateForStorage (src/mongo/shell/collection.js:165:18)
+    at DBCollection._validateUpdateDoc (src/mongo/shell/collection.js:388:14)
+    at Object.findOperations.updateOne (src/mongo/shell/bulk_api.js:675:20)
+    at DBCollection.update (src/mongo/shell/collection.js:455:22)
+    at (shell):1:6 at src/mongo/shell/collection.js:161
+> db.t.update({"a":"a1"},{$pop:{"comments":1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" } ] }
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" }, { "a3" : "a2123" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+> db.t.update({},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4"}]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" }, { "a3" : "a2123" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+> db.t.update({"a":"a1"},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4"}]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" }, { "a3" : "a2123" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+> db.t.update({"a1":"a2"},{$pop:{"comments":1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a123" }, { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+> db.t.update({"a1":"a2"},{$pop:{"comments":-1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a3123" }, { "a3" : "a4" } ] }
+> db.t.update({"a":"b"},{$pull:{"comments":{"a3":"a3123"}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" } ] }
+> db.t.update({"a":"b"},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4"}]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" }, { "a3" : "a3123" } ] }
+> db.t.update({"a":"b"},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4,"b3":}]}}})
+2016-09-15T06:50:19.574+0800 E QUERY    SyntaxError: Unexpected identifier
+> db.t.update({"a":"b"},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4,"b3":"b333"}]}}})
+2016-09-15T06:50:30.647+0800 E QUERY    SyntaxError: Unexpected identifier
+> db.t.update({"a":"b"},{$addToSet:{"comments":{$each:[{"a3":"a3123"},{"a3":"a4","b3":"b333"}]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" }, { "a3" : "a3123" }, { "a3" : "a4", "b3" : "b333" } ] }
+> db.t.find({"comments.a3":"a333"})
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" }, { "a3" : "a3123" }, { "a3" : "a4", "b3" : "b333" } ] }
+> db.t.find({"comments.a3":"a3123"})
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" }, { "a3" : "a3123" }, { "a3" : "a4", "b3" : "b333" } ] }
+> db.t.find({"comments.a3":"a4"})
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a4" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" }, { "a3" : "a3123" }, { "a3" : "a4", "b3" : "b333" } ] }
+> db.t.update({"comments.a3":"a4"},{$set:{"comments.$.a3":"a5"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a5" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a4" }, { "a3" : "a3123" }, { "a3" : "a4", "b3" : "b333" } ] }
+> db.t.update({"comments.a3":"a4"},{$set:{"comments.$.a3":"a5"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a5" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a5" }, { "a3" : "a3123" }, { "a3" : "a4", "b3" : "b333" } ] }
+> db.t.update({"comments.a3":"a4"},{$set:{"comments.$.a3":"a5"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a3123" }, { "a3" : "a5" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a5" }, { "a3" : "a3123" }, { "a3" : "a5", "b3" : "b333" } ] }
+> db.t.update({"comments.a3":"a5"},{$set:{"comments.a3":"a6"}})
+WriteResult({
+	"nMatched" : 0,
+	"nUpserted" : 0,
+	"nModified" : 0,
+	"writeError" : {
+		"code" : 16837,
+		"errmsg" : "cannot use the part (comments of comments.a3) to traverse the element ({comments: [ { a3: \"a3123\" }, { a3: \"a5\" } ]})"
+	}
+})
+> db.t.update({"comments.a3":"a5"},{$set:{"comments.0.a3":"a6"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a6" }, { "a3" : "a5" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a5" }, { "a3" : "a3123" }, { "a3" : "a5", "b3" : "b333" } ] }
+> db.t.update({"comments.a3":"a5"},{$set:{"comments.$.a3":"a7"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.t.find()
+{ "_id" : ObjectId("57d961319cf391e9f9ead9b5"), "a" : "a1", "b" : 3, "comments" : [ { "a3" : "a6" }, { "a3" : "a7" } ] }
+{ "_id" : ObjectId("57d961809cf391e9f9ead9b6"), "a" : "a1", "a1" : "a2", "b" : 1, "comments" : [ { "a3" : "a2123" }, { "a3" : "a3123" } ] }
+{ "_id" : ObjectId("57d7c2e25701e8c075cf5ee7"), "a" : "b", "b" : 2, "comments" : [ { "a3" : "a333", "b3" : "b333" }, { "a3" : "a5" }, { "a3" : "a3123" }, { "a3" : "a5", "b3" : "b333" } ] }
+> 

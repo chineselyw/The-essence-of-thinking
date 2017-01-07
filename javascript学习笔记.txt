@@ -1,0 +1,37 @@
+var t = true;
+
+setTimeout(function (){
+    t = false;
+},1000);
+
+while (t){}
+
+console.log('end');
+
+死循环
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+Function.prototype.method = function(name,func){
+    if(typeof this[name] !== "function"){
+        this.prototype[name] = func;
+    }
+}
+
+String.method("deentityify",function(){
+    var entity = {
+        quot:'"',
+        lt:'<',
+        gt:">"
+    };
+
+    return function(){
+        return this.replace(/&([^&;]+);/g,function(a,b){
+            var r = entity[b];
+            return typeof r==='string'?r:a;
+        });
+    }
+}());
+
+console.log("&quot;&lt;&gt;".deentityify());
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
