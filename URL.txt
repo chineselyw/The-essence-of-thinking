@@ -1,3 +1,8 @@
+/**
+*   pro git book
+*/
+https://git-scm.com/book/zh/v2
+
 
 https://www.sublimetext.com/
 
@@ -5,3 +10,4 @@ https://www.sublimetext.com/
 *   Package Control is the Sublime Text package manager. 
 */
 https://packagecontrol.io/browse
+
